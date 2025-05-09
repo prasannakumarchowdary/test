@@ -1,0 +1,57 @@
+class SalesRecord:
+    def __init__(self, item_name, quantity, unit_price):
+        self.item_name = item_name
+        self.quantity = quantity
+        self.unit_price = unit_price
+
+    def calculate_total(self):
+        return self.quantity * self.unit_price
+
+class SalesManager:
+    def __init__(self):
+        self.sales_records = []
+
+    def add_sale(self):
+        item_name = input("Enter item name: ")
+        quantity = int(input("Enter quantity sold: "))
+        unit_price = float(input("Enter unit price: "))
+        record = SalesRecord(item_name, quantity, unit_price)
+        self.sales_records.append(record)
+        print("Sale added successfully.")
+
+    def display_sales_report(self):
+         if not self.sales_records:
+            print("No sales records found.")
+            return
+
+         print("\n--- Sales Report ---")
+         total_sales_amount = 0
+         for index, record in enumerate(self.sales_records):
+            total = record.calculate_total()
+            total_sales_amount += total
+            print(f"Record {index + 1}: {record.item_name} - Quantity: {record.quantity}, Unit Price: ${record.unit_price:.2f}, Total: ${total:.2f}")
+
+         print(f"\nTotal Sales Amount: ${total_sales_amount:.2f}")
+
+    def run(self):
+        while True:
+            print("\n--- Sales Management System ---")
+            print("1. Add Sale")
+            print("2. Display Sales Report")
+            print("3. Exit")
+
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.add_sale()
+            elif choice == '2':
+                self.display_sales_report()
+            elif choice == '3':
+                print("Exiting program.")
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    sales_manager = SalesManager()
+    sales_manager.run()
